@@ -2,9 +2,7 @@ module ToyRobot
   class Parser
     class << self
       def parse(string)
-        string_ary = string.strip.split(' ')
-        command = string_ary[0]
-        args = string_ary[1]
+        command, args = format_string(string)
 
         case command
         when 'MOVE'
@@ -22,14 +20,13 @@ module ToyRobot
         when 'REPORT'
           command = :report
         when 'PLACE'
-          args_ary = args.split(',')
-          direction = args_ary[2].downcase.to_sym
+          direction = args[2].downcase.to_sym
 
           command = :place
           args = {
             position: {
-              x: args_ary[0].to_i,
-              y: args_ary[1].to_i
+              x: args[0].to_i,
+              y: args[1].to_i
             },
             facing: direction
           }
@@ -45,6 +42,14 @@ module ToyRobot
 
     class << self
       private # ----------------------------------------------------- // private
+
+      def format_string(string)
+        string_ary = string.strip.split(' ')
+        command = string_ary[0]
+        args = string_ary[1].split(',') if string_ary[1]
+
+        [ command, args ]
+      end
 
       def private_call_test
         true
