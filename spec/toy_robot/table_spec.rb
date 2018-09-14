@@ -24,6 +24,18 @@ RSpec.describe ToyRobot::Robot do
     it 'returns false if out-of-bounds values supplied' do
       expect(table.in_bounds?(x: 15, y: 15)).to be(false)
     end
+
+    it 'returns false if negative values supplied' do
+      expect(table.in_bounds?(x: -15, y: -15)).to be(false)
+    end
+
+    it 'returns false if X out of bounds' do
+      expect(table.in_bounds?(x: 15, y: 2)).to be(false)
+    end
+
+    it 'returns false if Y out of bounds' do
+      expect(table.in_bounds?(x: 2, y: 15)).to be(false)
+    end
   end
 
 end
