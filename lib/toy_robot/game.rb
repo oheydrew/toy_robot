@@ -7,8 +7,11 @@ module ToyRobot
       @table = nil
     end
 
+    # **args = {x: x, y: y} (optional)
     def create_table(**args)
       @table = Table.new(args)
     end
+
+    
   end
 end
