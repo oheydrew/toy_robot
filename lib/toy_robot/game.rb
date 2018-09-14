@@ -6,5 +6,9 @@ module ToyRobot
       @robot = nil
       @table = nil
     end
+
+    def create_table(**args)
+      @table = Table.new(args)
+    end
   end
 end
