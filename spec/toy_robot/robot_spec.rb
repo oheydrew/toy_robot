@@ -22,13 +22,12 @@ RSpec.describe ToyRobot::Robot do
   describe 'turning' do
     it 'can turn left' do
       robot.turn(:left)
-      expect(robot.facing).to eq(:east)
+      expect(robot.facing).to eq(:west)
     end
 
     it 'can turn right' do
       robot.turn(:right)
-      expect(robot.facing).to eq(:west)
+      expect(robot.facing).to eq(:east)
     end
   end
-
 end
