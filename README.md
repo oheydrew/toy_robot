@@ -1,35 +1,40 @@
-# ToyRobot
+**ToyRobot** - Drew Noll ([@oheydrew](http://www.oheydrew.me))
+========
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/toy_robot`. To experiment with that code, run `bin/console` for an interactive prompt.
+Documentation
+-------------
+- **[PROBLEM.md](./PROBLEM.md)** : The supplied problem outline in full
+- **[SOLUTION_NOTES.md](./SOLUTION_NOTES.md)** : Outline of my solution, class breakdown & general mechanics
 
-TODO: Delete this and the text above, and describe your gem
+Installation
+------------
 
-## Installation
+I used bundler's `Gemspec` configuration for quick folder / rspec setup, but this gem is **not pushed** to rubygems.org. You can install it locally if you like, using `bundle exec rake install`, but that isn't necessary.
 
-Add this line to your application's Gemfile:
+// TODO: More installation instructions
 
-```ruby
-gem 'toy_robot'
+Running Tests
+-------------
+
+### Standard RSpec tests
+
+To run the full test suite navigate to the project root (eg: `~/toy_robot/`) and run:
+
+```
+~/toy_robot/ $ rspec
 ```
 
-And then execute:
+### Guard-RSpec for auto-running tests
 
-    $ bundle
+This project has [guard](https://github.com/guard/guard#readme) insatalled with the `guard-rails` plugin. This can automate your tests, watching in the background for any changes. To run tests in this way, run:
 
-Or install it yourself as:
+```
+~/toy_robot/ $ bundle exec guard
+```
 
-    $ gem install toy_robot
+This will run `guard`, and watch for changes.
 
-## Usage
+Author
+------
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/toy_robot.
+Drew Noll - <a href="mailto:drew@oheydrew.me">drew@oheydrew.me</a> | <a href="http://www.oheydrew.me">www.oheydrew.me</a>
