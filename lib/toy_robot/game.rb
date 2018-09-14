@@ -13,6 +13,14 @@ module ToyRobot
     end
 
     def create_robot(x:, y:, facing:)
+      unless @table
+        raise RuntimeError, 'table must be created before robot'
+      end
+
+      unless @table.in_bounds?(x: x, y: y)
+        raise RuntimeError, 'robot not in bounds of table'
+      end
+
       @robot = Robot.new(x: x, y: y, facing: facing)
     end
   end
