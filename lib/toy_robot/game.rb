@@ -3,8 +3,8 @@ module ToyRobot
     attr_reader :robot, :table
 
     def initialize
-      @robot = nil
       @table = nil
+      @robot = nil
     end
 
     # **args = {x: x, y: y} (optional)
