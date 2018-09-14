@@ -7,13 +7,14 @@ RSpec.describe ToyRobot::Parser do
 
   describe 'parse (string input)' do
     it 'can parse a MOVE command' do
-      expect(ToyRobot::Parser.parse('MOVE')).to eq(command: :move)
+      expect(ToyRobot::Parser.parse('MOVE'))
+        .to eq(command: :move, args: nil)
     end
 
     it 'can parse a PLACE command' do
       expect(ToyRobot::Parser.parse('PLACE 2,2,NORTH'))
         .to eq(
-          command: :move,
+          command: :place,
           args: {
             position: {
               x: 2,
@@ -45,7 +46,8 @@ RSpec.describe ToyRobot::Parser do
     end
 
     it 'can parse a REPORT command' do
-      expect(ToyRobot::Parser.parse('REPORT')).to eq(command: :report)
+      expect(ToyRobot::Parser.parse('REPORT'))
+        .to eq(command: :report, args: nil)
     end
   end
 end
