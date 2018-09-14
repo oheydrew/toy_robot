@@ -49,4 +49,16 @@ RSpec.describe ToyRobot::Game do
         .to raise_error(RuntimeError)
     end
   end
+
+  describe 'valid_move?' do
+    it 'returns true if coordinates in range' do
+      game.create_table
+      expect(game.valid_move?(x: 3, y: 3)).to be(true)
+    end
+
+    it 'returns false if coordinates out of range' do
+      game.create_table
+      expect(game.valid_move?(x: 15, y: 15)).to be(false)
+    end
+  end
 end
