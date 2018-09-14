@@ -46,10 +46,10 @@ Class Breakdown
 >
 >Public methods: `in_bounds?`
 
-### **Command**:
+### **Parser**:
 >Parses commands from the user input, and returns them back as symbols (to be passed as messages to the `Robot` and `Table`) // TODO: Check this over. Pretty much as expected from problem though
 >
->`class Command` (`class << self`): Class methods only (No instances)
+>`class Parser` (`class << self`): Class methods only (No instances)
 >
 >Public methods:
 > - `parse`:
