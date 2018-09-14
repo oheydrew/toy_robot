@@ -26,8 +26,8 @@ module ToyRobot
       facing_index = compass.index(@facing)
 
       case direction
-      when :left then @facing = compass[facing_index - 1]
-      when :right then @facing = compass[facing_index + 1]
+      when :left then @facing = compass.rotate(-1)[facing_index]
+      when :right then @facing = compass.rotate(1)[facing_index]
       end
 
       @facing
