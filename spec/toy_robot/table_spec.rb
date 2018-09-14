@@ -3,7 +3,7 @@ RSpec.describe ToyRobot::Robot do
 
   describe 'init' do
     it 'can instantiate an instance of Table' do
-      expect(table).to be_an_instance_of(ToyRubot::Table)
+      expect(table).to be_an_instance_of(ToyRobot::Table)
     end
   end
 end
