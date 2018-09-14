@@ -18,5 +18,9 @@ module ToyRobot
 
       @robot = Robot.new(x: x, y: y, facing: facing)
     end
+
+    def valid_move?(x:, y:)
+      @table.in_bounds?(x: x, y: y)
+    end
   end
 end
