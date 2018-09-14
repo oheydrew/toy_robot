@@ -60,5 +60,45 @@ RSpec.describe ToyRobot::Game do
       game.create_table
       expect(game.valid_move?(x: 15, y: 15)).to be(false)
     end
+
+    it 'returns false if x coordinate out of range' do
+      game.create_table
+      expect(game.valid_move?(x: 15, y: 3)).to be(false)
+    end
+
+    it 'returns false if y coordinate out of range' do
+      game.create_table
+      expect(game.valid_move?(x: 3, y: 15)).to be(false)
+    end
+
+    it 'can get and pass the next robot move if valid' do
+      game.create_table
+      game.create_robot(x: 2, y: 2, facing: :north)
+      expect(game.valid_move?(game.robot.next_position)).to be(true)
+    end
+
+    it 'returns false if north on north edge' do
+      game.create_table
+      game.create_robot(x: 4, y: 4, facing: :north)
+      expect(game.valid_move?(game.robot.next_position)).to be(false)
+    end
+
+    it 'returns false if east on east edge' do
+      game.create_table
+      game.create_robot(x: 4, y: 4, facing: :east)
+      expect(game.valid_move?(game.robot.next_position)).to be(false)
+    end
+
+    it 'returns false if south on south edge' do
+      game.create_table
+      game.create_robot(x: 0, y: 0, facing: :south)
+      expect(game.valid_move?(game.robot.next_position)).to be(false)
+    end
+
+    it 'returns false if west on west edge' do
+      game.create_table
+      game.create_robot(x: 0, y: 0, facing: :west)
+      expect(game.valid_move?(game.robot.next_position)).to be(false)
+    end
   end
 end
