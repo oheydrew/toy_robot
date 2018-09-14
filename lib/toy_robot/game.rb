@@ -12,6 +12,8 @@ module ToyRobot
       @table = Table.new(args)
     end
 
-    
+    def create_robot(x:, y:, facing:)
+      @robot = Robot.new(x: x, y: y, facing: facing)
+    end
   end
 end
