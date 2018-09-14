@@ -29,5 +29,19 @@ RSpec.describe ToyRobot::Robot do
       robot.turn(:right)
       expect(robot.facing).to eq(:east)
     end
+
+    it 'can turn to the left 180 degrees' do
+      robot.turn(:left)
+      robot.turn(:left)
+      expect(robot.facing).to eq(:south)
+    end
+
+    it 'can turn to the right a full 360 degrees' do
+      robot.turn(:right)
+      robot.turn(:right)
+      robot.turn(:right)
+      robot.turn(:right)
+      expect(robot.facing).to eq(:north)
+    end
   end
 end
