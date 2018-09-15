@@ -14,7 +14,7 @@ module ToyRobot
       end
 
       command, args = Parser.parse(input).values_at(:command, :args)
-      public_send(command, args)
+      send(command, args)
     end
 
     # **args = {x: x, y: y} (optional)
@@ -33,7 +33,7 @@ module ToyRobot
       @table.in_bounds?(x: x, y: y)
     end
 
-    # ------------------------------------------------------- // Command methods
+    private # ----------------------------------------------- // private methods
 
     def place(args)
       create_robot(args)

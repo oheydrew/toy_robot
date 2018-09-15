@@ -134,12 +134,10 @@ RSpec.describe ToyRobot::Game do
       it 'does not place the robot if coordinates are out of bounds' do
         game.receive_input('PLACE 15,15,NORTH')
         expect(game.robot).to eq(nil)
-        expect { game.receive_input('PLACE 15,15,NORTH') }
-          .to output(/2,2,NORTH\n/).to_stdout
       end
 
-      xit 'handles :place errors' do
-        expect { game.receive_input('PLACE 15,15,NORTH') } 
+      it 'handles :place out of bounds errors' do
+        expect { game.receive_input('PLACE 15,15,NORTH') }
           .not_to raise_error
       end
 
