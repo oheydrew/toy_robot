@@ -14,17 +14,24 @@ Class Breakdown
 ### **Nouns to consider** (from PROBLEM.md): 
 >*ROBOT*, *POSITION*, *TABLE*, *COMMANDS*, *PLACE*, *MOVE*, *TURN*, *FACING*, *LEFT*, *RIGHT*, *REPORT*, *PREVENT*
 
-### **ToyRobot (Module)**: 
->This will likely just run the main program loop. 
+### **MainLoop**: 
+>This just runs the main program loop. It stores the Game instance, and loops through, asking the player what commands to input.
+>
+>`class MainLoop`: Class methods only (no instances).
+> - **@@game** (*Game.new*)
+>
+>Public methods: `start`
 
 ### **Game**:
 >Main game logic class. Stores the `Robot` and the `Table` instances. Central point for message routing between these classes.
+>Main `command` methods reside here (`:place`, `:move`, `:turn`, `:report`) and route the desired functionality through to the right places. Errors handled here, too.
 >
 >`class Game`: Creates an instance of a `Game`.
 > - **@table** (*Table.new*)
 > - **@robot** (*Robot.new*)
 >
->Public methods: `create_table`, `create_robot`, `valid_move?` // TODO: Add more
+>Public methods: `create_table`, `create_robot`, `receive_input` 
+>Private methods: `:place`, `:move`, `:turn`, `:report`, `valid_move?` // TODO: Move valid_move to private
 
 ### **Robot**: 
 >Robot will keep track of it's own `position`, but not know about the `table` itself. It will `move` itself, and be able to return it's current `position` and the `next_position` it plans to `move` to. // TODO: Update this
