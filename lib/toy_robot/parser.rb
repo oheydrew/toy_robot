@@ -13,16 +13,12 @@ module ToyRobot
           validate_no_args(command_string, args_string)
 
           command = :turn
-          args = {
-            direction: :left
-          }
+          args = :left
         when 'RIGHT'
           validate_no_args(command_string, args_string)
 
           command = :turn
-          args = {
-            direction: :right
-          }
+          args = :right
         when 'REPORT'
           validate_no_args(command_string, args_string)
 

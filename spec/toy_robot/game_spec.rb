@@ -162,7 +162,7 @@ RSpec.describe ToyRobot::Game do
       # TODO: Move some "check_valid?" tests here?
     end
 
-    xdescribe ':turn' do
+    describe ':turn' do
       it 'turns the robot left' do
         game.create_robot(x: 2, y: 2, facing: :north)
         game.receive_input('LEFT')

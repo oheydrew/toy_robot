@@ -29,9 +29,7 @@ RSpec.describe ToyRobot::Parser do
       expect(ToyRobot::Parser.parse('LEFT'))
         .to eq(
           command: :turn,
-          args: {
-            direction: :left
-          }
+          args: :left
         )
     end
 
@@ -39,9 +37,7 @@ RSpec.describe ToyRobot::Parser do
       expect(ToyRobot::Parser.parse('RIGHT'))
         .to eq(
           command: :turn,
-          args: {
-            direction: :right
-          }
+          args: :right
         )
     end
 

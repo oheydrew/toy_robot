@@ -43,5 +43,9 @@ module ToyRobot
       end
     end
 
+    def turn(direction)
+      @robot.turn(direction)
+    end
+
   end
 end
