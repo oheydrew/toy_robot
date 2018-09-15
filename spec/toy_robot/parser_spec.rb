@@ -77,6 +77,11 @@ RSpec.describe ToyRobot::Parser do
         .to raise_error(ArgumentError)
     end
 
+    it 'throws an error if PLACE has invalid direction' do
+      expect { ToyRobot::Parser.parse('PLACE 2,2,FRED') }
+        .to raise_error(ArgumentError)
+    end
+
     it 'throws an error if PLACE has too few args' do
       expect { ToyRobot::Parser.parse('PLACE 2,2') }
         .to raise_error(ArgumentError)

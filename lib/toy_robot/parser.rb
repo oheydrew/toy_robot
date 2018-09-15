@@ -70,14 +70,16 @@ module ToyRobot
 
       def validate_place_args(args)
         if args.nil?
-          raise ArgumentError,
-                'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
-        elsif args.length == 3
-          return if place_args_types_valid?(args)
+          msg = 'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
+        elsif !place_args_types_valid?(args)
+          msg = 'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
+        elsif !place_args_valid_direction?(args)
+          msg = 'Command PLACE invalid direction. CASE SENSITIVE (NORTH, SOUTH, EAST, WEST)'
+        elsif place_args_types_valid?(args) && place_args_valid_direction?(args)
+          return
         end
 
-        raise ArgumentError,
-              'Command PLACE arguments invalid. Try: PLACE 2,2,NORTH'
+        raise ArgumentError, msg
       end
 
       def place_args_types_valid?(args)
