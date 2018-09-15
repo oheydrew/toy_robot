@@ -1,0 +1,23 @@
+Style/StringLiterals:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/RedundantParentheses:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
