@@ -1,15 +1,8 @@
 RSpec.describe ToyRobot::MainLoop do
-  let(:game) { ToyRobot::Game.new }
-
-  describe 'main running game loop' do
-
-    before(:each) do
-      game.create_table
-      game.create_robot(x: 2, y: 2, facing: :north)
-    end
-
-    it 'is a test' do
-      # here we go
+  describe 'game setup' do
+    it 'sets up a Game with no arguments' do
+      ToyRobot::MainLoop.setup
+      expect(ToyRobot::MainLoop.game).to be_an_instance_of(ToyRobot::Game)
     end
   end
 end
