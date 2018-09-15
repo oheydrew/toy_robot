@@ -77,8 +77,28 @@ RSpec.describe ToyRobot::Parser do
         .to raise_error(ArgumentError)
     end
 
-    it 'throws an error if PLACE has incorrect arguments' do
-      expect { ToyRobot::Parser.parse('PLACE') }
+    it 'throws an error if PLACE has too few args' do
+      expect { ToyRobot::Parser.parse('PLACE 2,2') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if PLACE has too many args' do
+      expect { ToyRobot::Parser.parse('PLACE OH,MY,GOLLY,GOSH') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if PLACE has non integers supplied' do
+      expect { ToyRobot::Parser.parse('PLACE FRANKY,SAYS,PARTY') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if PLACE has all integers supplied' do
+      expect { ToyRobot::Parser.parse('PLACE 2,2,5') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if PLACE has odd arguments supplied' do
+      expect { ToyRobot::Parser.parse('PLACE NUMBER,BEAST,6') }
         .to raise_error(ArgumentError)
     end
   end
