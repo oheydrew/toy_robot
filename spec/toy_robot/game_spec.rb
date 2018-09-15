@@ -101,4 +101,83 @@ RSpec.describe ToyRobot::Game do
       expect(game.valid_move?(game.robot.next_position)).to be(false)
     end
   end
+
+  describe 'receive_input' do
+    it 'receives and passes on input' do
+      game.receive_input('MOVE')
+      expect(game).to receive(:move)
+    end
+  end
+
+  xdescribe 'game main command methods' do
+    before(:each) do
+      game.create_table
+    end
+
+    describe ':place' do
+      it 'places the robot if coordinates are in bounds' do
+        game.receive_input('PLACE 2,2,NORTH')
+        expect(game.robot.position).to eq(x: 2, y: 2)
+        expect(game.robot.facing).to eq(:west)
+      end
+
+      it 'does not place the robot if coordinates are out of bounds' do
+        game.receive_input('PLACE 15,15,NORTH')
+        expect(game.robot).to eq(nil)
+      end
+
+      it 'handles :place errors' do
+        expect { game.receive_input('PLACE 15,15,NORTH') } 
+          .not_to raise_error
+      end
+
+      # TODO: More examples please
+    end
+
+    describe ':move' do
+      it 'moves the robot if next_position is in bounds' do
+        game.create_robot(x: 2, y: 2, facing: :north)
+        game.receive_input('MOVE')
+        expect(game.robot.position).to eq(x: 2, y: 3)
+      end
+
+      it 'does not move the robot if next_position is out of bounds' do
+        game.create_robot(x: 4, y: 4, facing: :north)
+        game.receive_input('MOVE')
+        expect(game.robot.position).to eq(x: 4, y: 4)
+      end
+
+      it 'handles :move errors' do
+        game.create_robot(x: 4, y: 4, facing: :north)
+        expect { game.receive_input('MOVE') }
+          .not_to raise_error
+      end
+
+      # TODO: More examples please
+    end
+
+    describe ':turn' do
+      it 'turns the robot left' do
+        game.create_robot(x: 2, y: 2, facing: :north)
+        game.receive_input('LEFT')
+        expect(game.robot.facing).to eq(:west)
+      end
+
+      it 'turns the robot right' do
+        game.create_robot(x: 2, y: 2, facing: :north)
+        game.receive_input('RIGHT')
+        expect(game.robot.facing).to eq(:east)
+      end
+    end
+
+    describe ':report' do
+      it 'should report the robot\'s position and facing to stdout' do
+        game.create_robot(x: 2, y: 2, facing: :north)
+        expect { game.receive_input('REPORT') }
+          .to output('2,2,NORTH').to_stdout
+      end
+
+      # TODO: More examples please
+    end
+  end
 end

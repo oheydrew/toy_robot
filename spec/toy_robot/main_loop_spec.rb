@@ -1,4 +1,4 @@
-RSpec.describe ToyRobot::Main do
+RSpec.describe ToyRobot::MainLoop do
   let(:game) { ToyRobot::Game.new }
 
   describe 'main running game loop' do
