@@ -108,9 +108,9 @@ RSpec.describe ToyRobot::Game do
   end
 
   describe 'receive_input' do
-    it 'returns \'Invalid Command\' if command invalid' do
+    it 'prints \'Invalid Command\' if command invalid' do
       expect { game.receive_input('asfafqe') }
-        .to output(/Invalid Command\n/).to_stdout
+        .to output(/Invalid Command\n/).to_stdout # TODO: This will be Output?
     end
 
     it 'handles errors' do
@@ -176,11 +176,17 @@ RSpec.describe ToyRobot::Game do
       end
     end
 
-    xdescribe ':report' do
-      it 'should report the robot\'s position and facing to stdout' do
+    describe ':report' do
+      it 'should report the robot\'s position and facing to stdout #1' do
         game.create_robot(x: 2, y: 2, facing: :north)
         expect { game.receive_input('REPORT') }
-          .to output('2,2,NORTH').to_stdout
+          .to output(/2,2,NORTH\n/).to_stdout # TODO: This will be Output?
+      end
+
+      it 'should report the robot\'s position and facing to stdout #2' do
+        game.create_robot(x: 1, y: 3, facing: :south)
+        expect { game.receive_input('REPORT') }
+          .to output(/1,3,SOUTH\n/).to_stdout # TODO: This will be Output?
       end
 
       # TODO: More examples please

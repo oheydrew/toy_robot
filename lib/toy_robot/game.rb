@@ -47,5 +47,13 @@ module ToyRobot
       @robot.turn(direction)
     end
 
+    def report(*_args)
+      x = @robot.position[:x]
+      y = @robot.position[:y]
+      facing = @robot.facing.to_s.upcase
+
+      puts "#{x},#{y},#{facing}"
+    end
+
   end
 end
