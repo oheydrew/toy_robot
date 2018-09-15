@@ -51,6 +51,9 @@ RSpec.describe ToyRobot::Game do
   end
 
   describe 'valid_move?' do
+    # TODO: Make this method private? Thus, don't test it. 
+    # Move these tests to :move and Table?
+
     it 'returns true if coordinates in range' do
       game.create_table
       expect(game.valid_move?(x: 3, y: 3)).to be(true)
@@ -76,6 +79,8 @@ RSpec.describe ToyRobot::Game do
       game.create_robot(x: 2, y: 2, facing: :north)
       expect(game.valid_move?(game.robot.next_position)).to be(true)
     end
+
+    # TODO: Move these tests to :move ?
 
     it 'returns false if north on north edge' do
       game.create_table
@@ -103,18 +108,23 @@ RSpec.describe ToyRobot::Game do
   end
 
   describe 'receive_input' do
-    it 'receives and passes on input' do
-      game.receive_input('MOVE')
-      expect(game).to receive(:move)
+    it 'returns \'Invalid Command\' if command invalid' do
+      expect { game.receive_input('asfafqe') }
+        .to output(/Invalid Command\n/).to_stdout
+    end
+
+    it 'handles errors' do
+      expect { game.receive_input('blaah') }
+        .not_to raise_error
     end
   end
 
-  xdescribe 'game main command methods' do
+  describe 'game main command methods' do
     before(:each) do
       game.create_table
     end
 
-    describe ':place' do
+    xdescribe ':place' do
       it 'places the robot if coordinates are in bounds' do
         game.receive_input('PLACE 2,2,NORTH')
         expect(game.robot.position).to eq(x: 2, y: 2)
@@ -147,16 +157,12 @@ RSpec.describe ToyRobot::Game do
         expect(game.robot.position).to eq(x: 4, y: 4)
       end
 
-      it 'handles :move errors' do
-        game.create_robot(x: 4, y: 4, facing: :north)
-        expect { game.receive_input('MOVE') }
-          .not_to raise_error
-      end
-
       # TODO: More examples please
+
+      # TODO: Move some "check_valid?" tests here?
     end
 
-    describe ':turn' do
+    xdescribe ':turn' do
       it 'turns the robot left' do
         game.create_robot(x: 2, y: 2, facing: :north)
         game.receive_input('LEFT')
@@ -170,7 +176,7 @@ RSpec.describe ToyRobot::Game do
       end
     end
 
-    describe ':report' do
+    xdescribe ':report' do
       it 'should report the robot\'s position and facing to stdout' do
         game.create_robot(x: 2, y: 2, facing: :north)
         expect { game.receive_input('REPORT') }

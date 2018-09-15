@@ -2,47 +2,47 @@ module ToyRobot
   class Parser
     class << self
       def parse(string)
-        command, args = format_string(string)
+        command_string, args_string = format_string(string)
 
-        case command
+        case command_string
         when 'MOVE'
-          validate_no_args(command, args)
+          validate_no_args(command_string, args_string)
 
           command = :move
         when 'LEFT'
-          validate_no_args(command, args)
+          validate_no_args(command_string, args_string)
 
           command = :turn
           args = {
             direction: :left
           }
         when 'RIGHT'
-          validate_no_args(command, args)
+          validate_no_args(command_string, args_string)
 
           command = :turn
           args = {
             direction: :right
           }
         when 'REPORT'
-          validate_no_args(command, args)
+          validate_no_args(command_string, args_string)
 
           command = :report
         when 'PLACE'
-          validate_place_args(args)
+          validate_place_args(args_string)
 
-          direction = args[2].downcase.to_sym
+          direction = args_string[2].downcase.to_sym
 
           command = :place
           args = {
             position: {
-              x: args[0].to_i,
-              y: args[1].to_i
+              x: args_string[0].to_i,
+              y: args_string[1].to_i
             },
             facing: direction
           }
         end
 
-        { command: command, args: args }
+        { command: command, args: args } if command
       end
 
       def test

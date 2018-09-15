@@ -7,6 +7,16 @@ module ToyRobot
       @robot = nil
     end
 
+    def receive_input(input)
+      if Parser.parse(input).nil?
+        puts 'Invalid Command'
+        return
+      end
+
+      command, args = Parser.parse(input).values_at(:command, :args)
+      public_send(command, args)
+    end
+
     # **args = {x: x, y: y} (optional)
     def create_table(**args)
       @table = Table.new(args)
@@ -22,5 +32,16 @@ module ToyRobot
     def valid_move?(x:, y:)
       @table.in_bounds?(x: x, y: y)
     end
+
+    # ------------------------------------------------------- // Command methods
+
+    def move(*_args)
+      if valid_move?(@robot.next_position)
+        @robot.move
+      else
+        puts 'Move Not Valid'
+      end
+    end
+
   end
 end
