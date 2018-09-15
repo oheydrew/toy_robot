@@ -23,8 +23,8 @@ module ToyRobot
     end
 
     def create_robot(x:, y:, facing:)
-      raise 'table must be created before robot' unless @table
-      raise 'robot not in bounds of table' unless @table.in_bounds?(x: x, y: y)
+      raise 'Table must be created before robot' unless @table
+      raise 'Robot not in bounds of table' unless @table.in_bounds?(x: x, y: y)
 
       @robot = Robot.new(x: x, y: y, facing: facing)
     end
@@ -34,6 +34,13 @@ module ToyRobot
     end
 
     # ------------------------------------------------------- // Command methods
+
+    def place(args)
+      create_robot(args)
+
+    rescue RuntimeError, ArgumentError => error
+      puts error.message
+    end
 
     def move(*_args)
       if valid_move?(@robot.next_position)

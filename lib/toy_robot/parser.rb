@@ -30,10 +30,8 @@ module ToyRobot
 
           command = :place
           args = {
-            position: {
-              x: args_string[0].to_i,
-              y: args_string[1].to_i
-            },
+            x: args_string[0].to_i,
+            y: args_string[1].to_i,
             facing: direction
           }
         end

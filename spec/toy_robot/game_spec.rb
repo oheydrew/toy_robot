@@ -124,19 +124,21 @@ RSpec.describe ToyRobot::Game do
       game.create_table
     end
 
-    xdescribe ':place' do
+    describe ':place' do
       it 'places the robot if coordinates are in bounds' do
         game.receive_input('PLACE 2,2,NORTH')
         expect(game.robot.position).to eq(x: 2, y: 2)
-        expect(game.robot.facing).to eq(:west)
+        expect(game.robot.facing).to eq(:north)
       end
 
       it 'does not place the robot if coordinates are out of bounds' do
         game.receive_input('PLACE 15,15,NORTH')
         expect(game.robot).to eq(nil)
+        expect { game.receive_input('PLACE 15,15,NORTH') }
+          .to output(/2,2,NORTH\n/).to_stdout
       end
 
-      it 'handles :place errors' do
+      xit 'handles :place errors' do
         expect { game.receive_input('PLACE 15,15,NORTH') } 
           .not_to raise_error
       end

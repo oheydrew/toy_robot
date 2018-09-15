@@ -16,10 +16,8 @@ RSpec.describe ToyRobot::Parser do
         .to eq(
           command: :place,
           args: {
-            position: {
-              x: 2,
-              y: 2
-            },
+            x: 2,
+            y: 2,
             facing: :north
           }
         )
