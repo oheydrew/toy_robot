@@ -72,9 +72,7 @@ module ToyRobot
         if args.nil?
           raise ArgumentError,
                 'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
-        end
-
-        if args.length == 3
+        elsif args.length == 3
           return if place_args_types_valid?(args)
         end
 
@@ -85,11 +83,14 @@ module ToyRobot
       def place_args_types_valid?(args)
         arg_0_number = Float(args[0]) rescue false
         arg_1_number = Float(args[1]) rescue false
-        arg_2_string = ['NORTH', 'SOUTH', 'EAST', 'WEST'].include?(args[2])
+        arg_2_string = !(Float(args[2]) rescue false)
 
         arg_0_number && arg_1_number && arg_2_string
       end
 
+      def place_args_valid_direction?(args)
+        ['NORTH', 'SOUTH', 'EAST', 'WEST'].include?(args[2])
+      end
     end
   end
 end
