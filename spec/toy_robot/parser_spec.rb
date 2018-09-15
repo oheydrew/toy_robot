@@ -50,4 +50,36 @@ RSpec.describe ToyRobot::Parser do
         .to eq(command: :report, args: nil)
     end
   end
+
+  describe 'parse error generation' do
+    it 'throws an error if MOVE has arguments' do
+      expect { ToyRobot::Parser.parse('MOVE LEFT') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if LEFT has arguments' do
+      expect { ToyRobot::Parser.parse('LEFT 222 hello') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if RIGHT has arguments' do
+      expect { ToyRobot::Parser.parse('RIGHT all your base') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if REPORT has arguments' do
+      expect { ToyRobot::Parser.parse('REPORT    time') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if PLACE has no arguments' do
+      expect { ToyRobot::Parser.parse('PLACE') }
+        .to raise_error(ArgumentError)
+    end
+
+    it 'throws an error if PLACE has incorrect arguments' do
+      expect { ToyRobot::Parser.parse('PLACE') }
+        .to raise_error(ArgumentError)
+    end
+  end
 end
