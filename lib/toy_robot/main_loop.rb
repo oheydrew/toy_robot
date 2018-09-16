@@ -17,15 +17,7 @@ module ToyRobot
           size_input = gets.strip
           parsed_output = Parser.parse_size(size_input)
 
-          if parsed_output.nil?
-            @game.create_table
-            puts 'Default table (4x4) created'
-          elsif parsed_output[:x] > 0 && parsed_output[:y] > 0
-            @game.create_table(parsed_output)
-            puts "#{@game.table.size[:x]}, #{@game.table.size[:y]} table created."
-          else
-            puts "Table size invalid. Try: 4,4"
-          end
+          table_creator(parsed_output)
         end
       end
 
@@ -38,8 +30,20 @@ module ToyRobot
         end
       end
 
+      def table_creator(parsed_output)
+        if parsed_output.nil?
+          @game.create_table
+          puts 'Default table (4x4) created'
+        elsif parsed_output[:x] > 0 && parsed_output[:y] > 0
+          @game.create_table(parsed_output)
+          puts "#{@game.table.size[:x]}, #{@game.table.size[:y]} table created."
+        else
+          puts "Table size invalid. Try: 4,4"
+        end
+      end
+
       def exit
-        @game = nil
+        abort("Goodbye!")
       end
     end
   end

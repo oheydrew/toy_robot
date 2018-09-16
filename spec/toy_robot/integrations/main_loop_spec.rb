@@ -1,6 +1,6 @@
 RSpec.describe ToyRobot::MainLoop do
   describe 'game setup' do
-    before(:all) do
+    before(:each) do
       ToyRobot::MainLoop.game = ToyRobot::Game.new
     end
 
@@ -9,13 +9,27 @@ RSpec.describe ToyRobot::MainLoop do
     end
 
     it 'creates a table without size' do
-      ToyRobot::MainLoop.game.create_table
+      parsed_output = ToyRobot::Parser.parse_size('')
+      ToyRobot::MainLoop.table_creator(parsed_output)
       expect(ToyRobot::MainLoop.game.table.size).to eq(x: 4, y: 4)
     end
 
     it 'creates a table with size' do
-      ToyRobot::MainLoop.game.create_table(x: 6, y: 6)
+      parsed_output = ToyRobot::Parser.parse_size('6,6')
+      ToyRobot::MainLoop.table_creator(parsed_output)
       expect(ToyRobot::MainLoop.game.table.size).to eq(x: 6, y: 6)
+    end
+
+    it 'does not create a table with bad sizes' do
+      parsed_output = ToyRobot::Parser.parse_size('HEY BUDDY')
+      ToyRobot::MainLoop.table_creator(parsed_output)
+      expect(ToyRobot::MainLoop.game.table).to be(nil)
+    end
+
+    it 'does not create a table with bad sizes' do
+      parsed_output = ToyRobot::Parser.parse_size('HEY,5')
+      ToyRobot::MainLoop.table_creator(parsed_output)
+      expect(ToyRobot::MainLoop.game.table).to be(nil)
     end
   end
 end
