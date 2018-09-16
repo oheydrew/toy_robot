@@ -39,66 +39,9 @@ RSpec.describe ToyRobot::Game do
     end
   end
 
-  describe 'valid_move?' do
-    # TODO: Make this method private? Thus, don't test it. 
-    # Move these tests to :move and Table?
-
-    it 'returns true if coordinates in range' do
-      game.create_table
-      expect(game.valid_move?(x: 3, y: 3)).to be(true)
-    end
-
-    it 'returns false if coordinates out of range' do
-      game.create_table
-      expect(game.valid_move?(x: 15, y: 15)).to be(false)
-    end
-
-    it 'returns false if x coordinate out of range' do
-      game.create_table
-      expect(game.valid_move?(x: 15, y: 3)).to be(false)
-    end
-
-    it 'returns false if y coordinate out of range' do
-      game.create_table
-      expect(game.valid_move?(x: 3, y: 15)).to be(false)
-    end
-
-    it 'can get and pass the next robot move if valid' do
-      game.create_table
-      game.create_robot(x: 2, y: 2, facing: :north)
-      expect(game.valid_move?(game.robot.next_position)).to be(true)
-    end
-
-    # TODO: Move these tests to :move ?
-
-    it 'returns false if north on north edge' do
-      game.create_table
-      game.create_robot(x: 4, y: 4, facing: :north)
-      expect(game.valid_move?(game.robot.next_position)).to be(false)
-    end
-
-    it 'returns false if east on east edge' do
-      game.create_table
-      game.create_robot(x: 4, y: 4, facing: :east)
-      expect(game.valid_move?(game.robot.next_position)).to be(false)
-    end
-
-    it 'returns false if south on south edge' do
-      game.create_table
-      game.create_robot(x: 0, y: 0, facing: :south)
-      expect(game.valid_move?(game.robot.next_position)).to be(false)
-    end
-
-    it 'returns false if west on west edge' do
-      game.create_table
-      game.create_robot(x: 0, y: 0, facing: :west)
-      expect(game.valid_move?(game.robot.next_position)).to be(false)
-    end
-  end
-
   describe 'receive_input' do
     it 'handles errors' do
-      expect { game.receive_input('blaah') }
+      expect { game.receive_input('blaahblah') }
         .not_to raise_error
     end
   end
@@ -133,8 +76,6 @@ RSpec.describe ToyRobot::Game do
           .to output(/Table has not been created. Robot cannot be placed yet./)
           .to_stdout
       end
-
-      # TODO: More examples please
     end
 
     describe ':move' do
@@ -144,15 +85,29 @@ RSpec.describe ToyRobot::Game do
         expect(game.robot.position).to eq(x: 2, y: 3)
       end
 
-      it 'does not move the robot if next_position is out of bounds' do
+      it 'does not move the robot if north on north edge' do
         game.create_robot(x: 4, y: 4, facing: :north)
         game.receive_input('MOVE')
         expect(game.robot.position).to eq(x: 4, y: 4)
       end
 
-      # TODO: More examples please
+      it 'does not move the robot if east on east edge' do
+        game.create_robot(x: 4, y: 4, facing: :east)
+        game.receive_input('MOVE')
+        expect(game.robot.position).to eq(x: 4, y: 4)
+      end
 
-      # TODO: Move some "check_valid?" tests here?
+      it 'does not move the robot if south on south edge' do
+        game.create_robot(x: 0, y: 0, facing: :south)
+        game.receive_input('MOVE')
+        expect(game.robot.position).to eq(x: 0, y: 0)
+      end
+
+      it 'does not move the robot if west on west edge' do
+        game.create_robot(x: 0, y: 0, facing: :west)
+        game.receive_input('MOVE')
+        expect(game.robot.position).to eq(x: 0, y: 0)
+      end
     end
 
     describe ':turn' do
@@ -181,8 +136,6 @@ RSpec.describe ToyRobot::Game do
         expect { game.receive_input('REPORT') }
           .to output(/1,3,SOUTH\n/).to_stdout # TODO: This will be Output?
       end
-
-      # TODO: More examples please
     end
   end
 end

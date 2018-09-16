@@ -20,17 +20,15 @@ module ToyRobot
           if validate_place_args(args_string)
             err_msg = validate_place_args(args_string) 
           else
-            direction = args_string[2].downcase.to_sym
-
             command = :place
             args = {
               x: args_string[0].to_i,
               y: args_string[1].to_i,
-              facing: direction
+              facing: args_string[2].downcase.to_sym
             }
           end
-        when 'OPEN'
-          err_msg = 'I can\'t do that, Dave.'
+        when 'OPEN' # THE POD BAY DOORS
+          err_msg = 'I can\'t do that, Fred.'
         end
 
         err_msg = nil if command
@@ -81,14 +79,6 @@ module ToyRobot
 
       def place_args_valid_direction?(args)
         ['NORTH', 'SOUTH', 'EAST', 'WEST'].include?(args[2])
-      end
-
-      # Removed reference to this method: Unnecessary error generation
-      def validate_no_args(command, args)
-        return unless args
-
-        raise ArgumentError,
-              "Command #{command} takes no arguments. Try: #{command}"
       end
     end
   end

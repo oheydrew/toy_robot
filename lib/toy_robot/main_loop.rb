@@ -13,11 +13,13 @@ module ToyRobot
       def table_setup
         while @game.table.nil?
           puts 'Please enter a table size, or press enter for default (4x4)'
+          print ' $ '
           size_input = gets.strip
           parsed_output = Parser.parse_size(size_input)
 
           if parsed_output.nil?
             @game.create_table
+            puts 'Default table (4x4) created'
           elsif parsed_output[:x] > 0 && parsed_output[:y] > 0
             @game.create_table(parsed_output)
             puts "#{@game.table.size[:x]}, #{@game.table.size[:y]} table created."
@@ -28,8 +30,9 @@ module ToyRobot
       end
 
       def run
-        while @game do
-          puts 'Input Command: '
+        while @game
+          puts 'Input Command:'
+          print ' $ '
           input = gets.strip
           game.receive_input(input)
         end

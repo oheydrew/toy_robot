@@ -9,7 +9,7 @@ module ToyRobot
       }
     end
 
-    def in_bounds?(x:, y:)
+    def in_bounds?(x:, y:, **args)
       x_in_bounds = x >= 0 && x <= @size[:x]
       y_in_bounds = y >= 0 && y <= @size[:x]
 

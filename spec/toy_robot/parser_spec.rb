@@ -46,7 +46,7 @@ RSpec.describe ToyRobot::Parser do
     end
   end
 
-  describe 'parse error generation' do
+  describe 'parse error message passing' do
     it 'returns an error msg if PLACE has no args' do
       expect(ToyRobot::Parser.parse('PLACE'))
         .to include(:error)

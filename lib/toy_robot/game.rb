@@ -32,25 +32,21 @@ module ToyRobot
       @robot = Robot.new(x: x, y: y, facing: facing)
     end
 
-    def valid_move?(x:, y:)
-      @table.in_bounds?(x: x, y: y)
-    end
-
     private # ----------------------------------------------- // private methods
 
     def place(**args)
       if @table.nil?
         puts 'Table has not been created. Robot cannot be placed yet.'
-      elsif !@table.in_bounds?(x: args[:x], y: args[:y])
+      elsif !@table.in_bounds?(args)
         puts 'Requested position out of bounds of Table.'
         puts "Your table size is: #{@table.size[:x]}, #{@table.size[:y]}"
-      elsif @table.in_bounds?(x: args[:x], y: args[:y])
+      elsif @table.in_bounds?(args)
         create_robot(args)
       end
     end
 
     def move(*_args)
-      if valid_move?(@robot.next_position)
+      if @table.in_bounds?(@robot.next_position)
         @robot.move
       else
         puts 'Move Not Valid'
@@ -68,6 +64,5 @@ module ToyRobot
 
       puts "#{x},#{y},#{facing}"
     end
-
   end
 end
