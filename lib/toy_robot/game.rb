@@ -34,6 +34,7 @@ module ToyRobot
 
     private # ----------------------------------------------- // private methods
 
+    # **args = {x: x, y: y, facing: facing} 
     def place(**args)
       if @table.nil?
         puts 'Table has not been created. Robot cannot be placed yet.'
