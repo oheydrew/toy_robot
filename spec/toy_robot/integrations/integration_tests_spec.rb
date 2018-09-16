@@ -1,7 +1,7 @@
 RSpec.describe ToyRobot do
   let(:game) { ToyRobot::Game.new }
 
-  describe 'integration testing: sunny default table size' do
+  describe 'integration testing: sunny days' do
     before(:each) do
       game.create_table
     end
@@ -65,7 +65,7 @@ RSpec.describe ToyRobot do
     end
   end
 
-  describe 'integration testing: stormy default table size' do
+  describe 'integration testing: stormy days' do
     before(:each) do
       game.create_table
     end
@@ -90,18 +90,40 @@ RSpec.describe ToyRobot do
         .to output(/4,4,SOUTH/).to_stdout
     end
 
-    it 'stormy test #4: Error catching' do
+    it 'stormy test #3: Incorrect inputs' do
+      game.receive_input('PLACE 2,2,WEST')
+      game.receive_input('TURN AROUND')
+      game.receive_input('every now and then I fall apart')
+      game.receive_input('and I need you more tonight')
+      game.receive_input('TOTAL ECLIPSE OF THE HEART')
+      expect { game.receive_input('REPORT') }
+        .to output(/2,2,WEST/).to_stdout
+    end
+  end
+
+  describe 'error catching?' do
+    it 'error catching #1' do
       expect { game.receive_input('gadvvad') }
         .not_to raise_error
     end
 
-    it 'stormy test #5: Error catching' do
+    it 'error catching #2' do
       expect { game.receive_input('PLACE 22351234edvvv.sds.vs,s,sr') }
         .not_to raise_error
     end
 
-    it 'stormy test #6: Error catching' do
+    it 'error catching #3' do
       expect { game.receive_input('MOOVE') }
+        .not_to raise_error
+    end
+
+    it 'error catching #4' do
+      expect { game.receive_input('move') }
+        .not_to raise_error
+    end
+
+    it 'error catching #5' do
+      expect { game.receive_input('TURN AROUND') }
         .not_to raise_error
     end
   end

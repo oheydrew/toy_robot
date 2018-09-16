@@ -18,7 +18,7 @@ module ToyRobot
           command = :report
         when 'PLACE'
           if validate_place_args(args_string)
-            err_msg = validate_place_args(args_string) 
+            err_msg = validate_place_args(args_string)
           else
             command = :place
             args = {
@@ -28,7 +28,9 @@ module ToyRobot
             }
           end
         when 'OPEN' # THE POD BAY DOORS
-          err_msg = 'I can\'t do that, Fred.'
+          err_msg = 'I can\'t do that, Fred. You\'ll need to hire Drew, first.'
+        when 'EXIT'
+          MainLoop.exit
         end
 
         err_msg = nil if command
