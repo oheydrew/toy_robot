@@ -8,13 +8,19 @@ module ToyRobot
     end
 
     def receive_input(input)
-      if Parser.parse(input).nil?
-        puts 'Invalid Command'
+      parsed_output = Parser.parse(input)
+      command, args, err_msg = parsed_output.values_at(:command, :args, :error)
+
+      if err_msg
+        puts "Error: #{err_msg}"
         return
       end
 
-      command, args = Parser.parse(input).values_at(:command, :args)
-      send(command, args)
+      if !@robot && [:move, :left, :right, :report].include?(command)
+        puts "Error: Robot not yet placed. Try PLACE X,Y,FACING"
+      elsif @robot || command == :place
+        send(command, args)
+      end
     end
 
     # **args = {x: x, y: y} (optional)

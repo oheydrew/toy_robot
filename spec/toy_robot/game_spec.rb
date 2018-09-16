@@ -97,11 +97,6 @@ RSpec.describe ToyRobot::Game do
   end
 
   describe 'receive_input' do
-    it 'prints \'Invalid Command\' if command invalid' do
-      expect { game.receive_input('asfafqe') }
-        .to output(/Invalid Command\n/).to_stdout # TODO: This will be Output?
-    end
-
     it 'handles errors' do
       expect { game.receive_input('blaah') }
         .not_to raise_error
