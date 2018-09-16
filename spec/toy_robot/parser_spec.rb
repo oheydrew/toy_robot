@@ -1,7 +1,8 @@
 RSpec.describe ToyRobot::Parser do
   describe 'init' do
     it 'can call static methods directly on Parser' do
-      expect(ToyRobot::Parser.test).to be(true)
+      expect(ToyRobot::Parser.parse('MOVE'))
+        .to eq(command: :move, args: nil)
     end
   end
 

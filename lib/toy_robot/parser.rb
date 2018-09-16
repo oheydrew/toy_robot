@@ -38,10 +38,6 @@ module ToyRobot
 
         { command: command, args: args } if command
       end
-
-      def test
-        true
-      end
     end
 
     class << self

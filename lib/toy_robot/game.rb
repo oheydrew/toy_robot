@@ -23,9 +23,6 @@ module ToyRobot
     end
 
     def create_robot(x:, y:, facing:)
-      raise 'Table must be created before robot' unless @table
-      raise 'Robot not in bounds of table' unless @table.in_bounds?(x: x, y: y)
-
       @robot = Robot.new(x: x, y: y, facing: facing)
     end
 
@@ -35,11 +32,15 @@ module ToyRobot
 
     private # ----------------------------------------------- // private methods
 
-    def place(args)
-      create_robot(args)
-
-    rescue RuntimeError, ArgumentError => error
-      puts error.message
+    def place(**args)
+      if @table.nil?
+        puts 'Table has not been created. Robot cannot be placed yet.'
+      elsif !@table.in_bounds?(x: args[:x], y: args[:y])
+        puts 'Requested position out of bounds of Table.'
+        puts "Your table size is: #{@table.size[:x]}, #{@table.size[:y]}"
+      elsif @table.in_bounds?(x: args[:x], y: args[:y])
+        create_robot(args)
+      end
     end
 
     def move(*_args)

@@ -37,17 +37,6 @@ RSpec.describe ToyRobot::Game do
       expect(game.robot.position).to eq(x: 2, y: 2)
       expect(game.robot.facing).to eq(:north)
     end
-
-    it 'raises an error if no table is created' do
-      expect { game.create_robot(x: 2, y: 2, facing: :north) }
-        .to raise_error(RuntimeError)
-    end
-
-    it 'raises an error if placed out of bounds' do
-      game.create_table
-      expect { game.create_robot(x: 15, y: 15, facing: :north) }
-        .to raise_error(RuntimeError)
-    end
   end
 
   describe 'valid_move?' do
@@ -136,9 +125,18 @@ RSpec.describe ToyRobot::Game do
         expect(game.robot).to eq(nil)
       end
 
-      it 'handles :place out of bounds errors' do
-        expect { game.receive_input('PLACE 15,15,NORTH') }
-          .not_to raise_error
+      it 'does not create robot if no table is created' do
+        game = ToyRobot::Game.new
+        game.receive_input('PLACE 2,2,NORTH')
+        expect(game.robot).to be(nil)
+      end
+
+      it 'notifies the user if no table is created' do
+        game = ToyRobot::Game.new
+        game.receive_input('PLACE 2,2,NORTH')
+        expect { game.receive_input('PLACE 2,2,NORTH') }
+          .to output(/Table has not been created. Robot cannot be placed yet./)
+          .to_stdout
       end
 
       # TODO: More examples please
