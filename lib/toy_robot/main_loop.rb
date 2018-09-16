@@ -1,16 +1,30 @@
 module ToyRobot
   class MainLoop
     class << self
-      attr_reader :game
+      attr_accessor :game
 
       def setup
         @game = Game.new
 
         puts 'Hello! Welcome.'
-        puts 'Please enter a table size, or press enter for default (5x5)'
-        size_input = gets.strip
-        @game.create_table(Parser.parse_size(size_input))
-        puts "#{@game.table.size[:x]}, #{@game.table.size[:y]} table created."
+        table_setup
+      end
+
+      def table_setup
+        while @game.table.nil?
+          puts 'Please enter a table size, or press enter for default (4x4)'
+          size_input = gets.strip
+          parsed_output = Parser.parse_size(size_input)
+
+          if parsed_output.nil?
+            @game.create_table
+          elsif parsed_output[:x] > 0 && parsed_output[:y] > 0
+            @game.create_table(parsed_output)
+            puts "#{@game.table.size[:x]}, #{@game.table.size[:y]} table created."
+          else
+            puts "Table size invalid. Try: 4,4"
+          end
+        end
       end
 
       def run

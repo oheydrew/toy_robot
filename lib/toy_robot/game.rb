@@ -16,7 +16,7 @@ module ToyRobot
         return
       end
 
-      if !@robot && [:move, :left, :right, :report].include?(command)
+      if !@robot && [:move, :turn, :report].include?(command)
         puts "Error: Robot not yet placed. Try PLACE X,Y,FACING"
       elsif @robot || command == :place
         send(command, args)

@@ -29,10 +29,20 @@ module ToyRobot
               facing: direction
             }
           end
+        when 'OPEN'
+          err_msg = 'I can\'t do that, Dave.'
         end
 
         err_msg = nil if command
         { command: command, args: args, error: err_msg }
+      end
+
+      def parse_size(string)
+        return nil if string == ''
+        string_ary = string.split(',')
+        x, y = string_ary
+
+        { x: x.to_i, y: y.to_i }
       end
     end
 
@@ -49,16 +59,16 @@ module ToyRobot
 
       def validate_place_args(args)
         if args.nil?
-          e_msg = 'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
+          err_msg = 'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
         elsif !place_args_valid_types?(args)
-          e_msg = 'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
+          err_msg = 'Command PLACE requires X,Y,FACING args. Try: PLACE 2,2,NORTH'
         elsif !place_args_valid_direction?(args)
-          e_msg = 'Command PLACE invalid direction. CASE SENSITIVE (NORTH, SOUTH, EAST, WEST)'
+          err_msg = 'Command PLACE invalid direction. CASE SENSITIVE (NORTH, SOUTH, EAST, WEST)'
         elsif place_args_valid_types?(args) && place_args_valid_direction?(args)
           return false
         end
 
-        e_msg
+        err_msg
       end
 
       def place_args_valid_types?(args)
