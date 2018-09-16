@@ -1,7 +1,7 @@
 RSpec.describe ToyRobot::MainLoop do
   describe 'game setup' do
     before(:all) do
-      ToyRobot::MainLoop.setup
+      ToyRobot::MainLoop.game = ToyRobot::Game.new
     end
 
     it 'sets up a Game' do
@@ -17,7 +17,5 @@ RSpec.describe ToyRobot::MainLoop do
       ToyRobot::MainLoop.game.create_table(x: 6, y: 6)
       expect(ToyRobot::MainLoop.game.table.size).to eq(x: 6, y: 6)
     end
-
-    # TODO: More integration tests here
   end
 end
