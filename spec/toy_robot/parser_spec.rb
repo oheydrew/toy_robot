@@ -47,59 +47,39 @@ RSpec.describe ToyRobot::Parser do
   end
 
   describe 'parse error generation' do
-    it 'throws an error if MOVE has arguments' do
-      expect { ToyRobot::Parser.parse('MOVE LEFT') }
-        .to raise_error(ArgumentError)
+    it 'returns an error msg if PLACE has no args' do
+      output = ToyRobot::Parser.parse('PLACE')
+      expect(output.key?(:error)).to be(true)
     end
 
-    it 'throws an error if LEFT has arguments' do
-      expect { ToyRobot::Parser.parse('LEFT 222 hello') }
-        .to raise_error(ArgumentError)
+    it 'returns an error msg if PLACE has invalid direction' do
+      output = ToyRobot::Parser.parse('PLACE 2,2,FRED')
+      expect(output.key?(:error)).to be(true)
     end
 
-    it 'throws an error if RIGHT has arguments' do
-      expect { ToyRobot::Parser.parse('RIGHT all your base') }
-        .to raise_error(ArgumentError)
+    it 'returns an error msg if PLACE has too few args' do
+      output = ToyRobot::Parser.parse('PLACE 2,2')
+      expect(output.key?(:error)).to be(true)
     end
 
-    it 'throws an error if REPORT has arguments' do
-      expect { ToyRobot::Parser.parse('REPORT    time') }
-        .to raise_error(ArgumentError)
+    it 'returns an error msg if PLACE has too many args' do
+      output = ToyRobot::Parser.parse('PLACE OH,MY,GOLLY,GOSH')
+      expect(output.key?(:error)).to be(true)
     end
 
-    it 'throws an error if PLACE has no arguments' do
-      expect { ToyRobot::Parser.parse('PLACE') }
-        .to raise_error(ArgumentError)
+    it 'returns an error msg if PLACE has non integers supplied' do
+      output = ToyRobot::Parser.parse('PLACE FRANKY,SAYS,PARTY')
+      expect(output.key?(:error)).to be(true)
     end
 
-    it 'throws an error if PLACE has invalid direction' do
-      expect { ToyRobot::Parser.parse('PLACE 2,2,FRED') }
-        .to raise_error(ArgumentError)
+    it 'returns an error msg if PLACE has all integers supplied' do
+      output = ToyRobot::Parser.parse('PLACE 2,2,5')
+      expect(output.key?(:error)).to be(true)
     end
 
-    it 'throws an error if PLACE has too few args' do
-      expect { ToyRobot::Parser.parse('PLACE 2,2') }
-        .to raise_error(ArgumentError)
-    end
-
-    it 'throws an error if PLACE has too many args' do
-      expect { ToyRobot::Parser.parse('PLACE OH,MY,GOLLY,GOSH') }
-        .to raise_error(ArgumentError)
-    end
-
-    it 'throws an error if PLACE has non integers supplied' do
-      expect { ToyRobot::Parser.parse('PLACE FRANKY,SAYS,PARTY') }
-        .to raise_error(ArgumentError)
-    end
-
-    it 'throws an error if PLACE has all integers supplied' do
-      expect { ToyRobot::Parser.parse('PLACE 2,2,5') }
-        .to raise_error(ArgumentError)
-    end
-
-    it 'throws an error if PLACE has odd arguments supplied' do
-      expect { ToyRobot::Parser.parse('PLACE NUMBER,BEAST,6') }
-        .to raise_error(ArgumentError)
+    it 'returns an error msg if PLACE has odd arguments supplied' do
+      output = ToyRobot::Parser.parse('PLACE NUMBER,BEAST,6')
+      expect(output.key?(:error)).to be(true)
     end
   end
 end
