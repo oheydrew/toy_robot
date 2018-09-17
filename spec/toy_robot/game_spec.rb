@@ -128,13 +128,13 @@ RSpec.describe ToyRobot::Game do
       it 'should report the robot\'s position and facing to stdout #1' do
         game.create_robot(x: 2, y: 2, facing: :north)
         expect { game.receive_input('REPORT') }
-          .to output("🤖 *beep* 'REPORTING. 2,2,NORTH.' *beep*\n").to_stdout # TODO: This will be Output?
+          .to output("🤖 *beep* 'REPORTING. 2,2,NORTH.' *beep*\n").to_stdout
       end
 
       it 'should report the robot\'s position and facing to stdout #2' do
         game.create_robot(x: 1, y: 3, facing: :south)
         expect { game.receive_input('REPORT') }
-          .to output("🤖 *beep* 'REPORTING. 1,3,SOUTH.' *beep*\n").to_stdout # TODO: This will be Output?
+          .to output("🤖 *beep* 'REPORTING. 1,3,SOUTH.' *beep*\n").to_stdout
       end
     end
   end
