@@ -11,4 +11,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  # hide PUTS output in rspec output
+  config.before { allow($stdout).to receive(:puts) } 
 end
