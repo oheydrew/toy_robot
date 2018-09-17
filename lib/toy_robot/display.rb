@@ -2,19 +2,19 @@ module ToyRobot
   class Display
     class << self
       def output(string)
-        "🖥 : '#{string}'"
+        puts "🖥  #{string}"
       end
 
       def robot(string)
-        puts "🤖 : '#{string}'"
+        puts "🤖 #{string}"
       end
 
       def error(string)
-        puts "❗ : #{string}"
+        puts "❗ #{string}"
       end
 
       def prompt
-        puts " $ "
+        print " $ "
       end
     end
   end

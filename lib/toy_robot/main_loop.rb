@@ -6,25 +6,25 @@ module ToyRobot
       def setup
         @game = Game.new
 
-        puts 'Hello! Welcome.'
+        Display.output 'Hello! Welcome.'
         table_setup
       end
 
       def table_setup
         while @game.table.nil?
-          puts 'Please enter a table size, or press enter for default (4x4)'
-          print ' $ '
+          Display.output 'Please enter a table size, or press enter for default (4x4)'
+          Display.prompt
           size_input = gets.strip
           parsed_output = Parser.parse_size(size_input)
 
           table_creator(parsed_output)
         end
+        Display.output 'Please PLACE your robot: (PLACE X,Y,FACING)'
       end
 
       def run
         while @game
-          puts 'Input Command:'
-          print ' $ '
+          Display.prompt
           input = gets.strip
           game.receive_input(input)
         end
@@ -33,17 +33,17 @@ module ToyRobot
       def table_creator(parsed_output)
         if parsed_output.nil?
           @game.create_table
-          puts 'Default table (4x4) created'
+          Display.output 'Default table (4x4) created'
         elsif parsed_output[:x] > 0 && parsed_output[:y] > 0
           @game.create_table(parsed_output)
-          puts "#{@game.table.size[:x]}, #{@game.table.size[:y]} table created."
+          Display.output "#{@game.table.size[:x]}, #{@game.table.size[:y]} table created."
         else
-          puts "Table size invalid. Try: 4,4"
+          Display.error "Table size invalid. Try: 4,4"
         end
       end
 
       def exit
-        abort("Goodbye!")
+        abort("🤖 'I\'LL BE BACK.'")
       end
     end
   end
